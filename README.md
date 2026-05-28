@@ -22,13 +22,7 @@ A local-first daily work logger with rich Markdown editing, calendar navigation,
 ## Installation
 
 ```bash
-pip install .
-```
-
-Or for development (editable install):
-
-```bash
-pip install -e .
+pip install markday
 ```
 
 ---

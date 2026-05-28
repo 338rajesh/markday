@@ -4,3 +4,7 @@ README.md:Zone.Identifier
 pyproject.toml:Zone.Identifier
 .venv
 __pycache__
+*.whl
+*.tar.gz
+dist/
+build/
