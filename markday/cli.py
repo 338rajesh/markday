@@ -1,4 +1,4 @@
-"""CLI entry point for worklog."""
+"""CLI entry point for markday."""
 import argparse
 import webbrowser
 import threading
@@ -8,7 +8,7 @@ from .app import create_app
 
 def main():
     parser = argparse.ArgumentParser(
-        description="worklog — local daily work logger"
+        description="markday — local daily work logger"
     )
     parser.add_argument("--host", default="127.0.0.1", help="Host to bind (default: 127.0.0.1)")
     parser.add_argument("--port", type=int, default=5500, help="Port to bind (default: 5500)")
@@ -25,7 +25,7 @@ def main():
             webbrowser.open(url)
         threading.Thread(target=_open, daemon=True).start()
 
-    print(f"  worklog running → {url}")
+    print(f"  markday running → {url}")
     print("  Press Ctrl+C to stop.\n")
     app.run(host=args.host, port=args.port, debug=args.debug)
 

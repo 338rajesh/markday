@@ -1,5 +1,5 @@
 """
-worklog - A local daily work logging app with rich markdown editing.
+markday - A local daily work logging app with rich markdown editing.
 """
 
 import os
@@ -10,7 +10,7 @@ from pathlib import Path
 from flask import Flask, render_template, request, jsonify, abort
 import markdown
 
-DATA_DIR = Path(os.environ.get("WORKLOG_DIR", Path.home() / ".worklog"))
+DATA_DIR = Path(os.environ.get("MARKDAY_DIR", Path.home() / ".markday"))
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -50,7 +50,7 @@ def parse_log_file(year: int) -> dict[str, str]:
 def write_log_file(year: int, entries: dict[str, str]) -> None:
     """Write sorted entries back to the year log file."""
     path = get_log_file(year)
-    lines = [f"# Work Log {year}\n\n"]
+    lines = [f"# Mark Day - {year}\n\n"]
     for date_str in sorted(entries.keys()):
         content = entries[date_str].strip()
         lines.append(f"## {date_str}\n\n{content}\n\n")

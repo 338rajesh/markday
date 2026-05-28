@@ -15,7 +15,7 @@ A local-first daily work logger with rich Markdown editing, calendar navigation,
 | **Preview**             | On-demand split-pane preview with math (KaTeX) and syntax highlighting |
 | **Math**                | KaTeX — inline `$...$` and display `$$...$$`                           |
 | **Keyboard shortcuts**  | VS Code–style: Ctrl+B/I/S/P/F/D, Alt+↑↓, Tab indent, list continuation |
-| **Local storage**       | One Markdown file per year at `~/.worklog/YYYY.md`                     |
+| **Local storage**       | One Markdown file per year at `~/.markday/YYYY.md`                     |
 
 ---
 
@@ -36,26 +36,26 @@ pip install -e .
 ## Usage
 
 ```bash
-worklog                  # start on default port 5500, open browser
-worklog --port 8080      # custom port
-worklog --no-browser     # don't auto-open browser
-worklog --debug          # Flask debug mode
+markday                  # start on default port 5500, open browser
+markday --port 8080      # custom port
+markday --no-browser     # don't auto-open browser
+markday --debug          # Flask debug mode
 ```
 
 Set the data directory via environment variable:
 
 ```bash
-WORKLOG_DIR=/path/to/notes worklog
+MARKDAY_DIR=/path/to/notes markday
 ```
 
 ---
 
 ## Data format
 
-Entries are stored as plain Markdown in `~/.worklog/YYYY.md`:
+Entries are stored as plain Markdown in `~/.markday/YYYY.md`:
 
 ```markdown
-# Work Log 2026
+# Mark Day 2026
 
 ## 2026-05-28
 

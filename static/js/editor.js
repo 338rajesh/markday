@@ -1,5 +1,5 @@
 /* ================================================================
-   worklog/static/js/editor.js
+   markday/static/js/editor.js
    Full-featured markdown editor with calendar, search, shortcuts
    ================================================================ */
 
