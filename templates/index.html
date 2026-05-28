@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>worklog</title>
+
+  <!-- CodeMirror 6 via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+
+  <!-- KaTeX for math -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+
+  <!-- highlight.js for preview code blocks -->
+  <link rel="stylesheet" id="hljs-theme" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="/static/css/main.css" />
+</head>
+<body>
+
+<!-- ── Sidebar ───────────────────────────────────────────────── -->
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <span id="app-title">📓 worklog</span>
+    <button id="theme-toggle" title="Toggle theme">🌙</button>
+  </div>
+
+  <!-- Year picker -->
+  <div id="year-nav">
+    <button id="prev-year">‹</button>
+    <span id="current-year"></span>
+    <button id="next-year">›</button>
+  </div>
+
+  <!-- Mini calendar -->
+  <div id="calendar-wrap">
+    <div id="cal-header">
+      <button id="prev-month">‹</button>
+      <span id="cal-month-label"></span>
+      <button id="next-month">›</button>
+    </div>
+    <div id="cal-grid">
+      <div class="cal-dow">Su</div><div class="cal-dow">Mo</div>
+      <div class="cal-dow">Tu</div><div class="cal-dow">We</div>
+      <div class="cal-dow">Th</div><div class="cal-dow">Fr</div>
+      <div class="cal-dow">Sa</div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div id="search-wrap">
+    <input id="search-input" type="search" placeholder="Search entries… (Ctrl+F)" spellcheck="false" />
+    <div id="search-results"></div>
+  </div>
+
+  <!-- Shortcuts cheatsheet toggle -->
+  <button id="shortcuts-btn" title="Keyboard shortcuts">⌨ Shortcuts</button>
+</aside>
+
+<!-- ── Main area ──────────────────────────────────────────────── -->
+<main id="main">
+  <div id="topbar">
+    <button id="sidebar-toggle" title="Toggle sidebar">☰</button>
+    <h1 id="entry-date-label"></h1>
+    <div id="topbar-actions">
+      <span id="save-status"></span>
+      <button id="preview-toggle" title="Toggle preview (Ctrl+P)">⬚ Preview</button>
+      <button id="today-btn" title="Jump to today">Today</button>
+    </div>
+  </div>
+
+  <div id="editor-area">
+    <div id="editor-pane">
+      <div id="editor-toolbar">
+        <button data-action="bold"      title="Bold (Ctrl+B)"><b>B</b></button>
+        <button data-action="italic"    title="Italic (Ctrl+I)"><i>I</i></button>
+        <button data-action="strike"    title="Strikethrough"><s>S</s></button>
+        <button data-action="code"      title="Inline code">`c`</button>
+        <span class="tb-sep"></span>
+        <button data-action="h1"        title="Heading 1">H1</button>
+        <button data-action="h2"        title="Heading 2">H2</button>
+        <button data-action="h3"        title="Heading 3">H3</button>
+        <span class="tb-sep"></span>
+        <button data-action="ul"        title="Bullet list">• List</button>
+        <button data-action="ol"        title="Numbered list">1. List</button>
+        <button data-action="task"      title="Task list">☑ Task</button>
+        <span class="tb-sep"></span>
+        <button data-action="blockquote" title="Blockquote">❝</button>
+        <button data-action="codeblock"  title="Code block">{ }</button>
+        <button data-action="math"       title="Math block (KaTeX)">∑</button>
+        <button data-action="hr"         title="Horizontal rule">─</button>
+        <button data-action="link"       title="Link">🔗</button>
+        <button data-action="table"      title="Insert table">▦</button>
+      </div>
+      <textarea id="editor"></textarea>
+    </div>
+    <div id="preview-pane" class="hidden">
+      <div id="preview-content"></div>
+    </div>
+  </div>
+</main>
+
+<!-- ── Shortcuts modal ───────────────────────────────────────── -->
+<div id="shortcuts-modal" class="modal hidden">
+  <div class="modal-box">
+    <h3>Keyboard Shortcuts</h3>
+    <table>
+      <tr><td>Ctrl+S</td><td>Save</td></tr>
+      <tr><td>Ctrl+B</td><td>Bold</td></tr>
+      <tr><td>Ctrl+I</td><td>Italic</td></tr>
+      <tr><td>Ctrl+P</td><td>Toggle preview</td></tr>
+      <tr><td>Ctrl+F</td><td>Focus search</td></tr>
+      <tr><td>Ctrl+/</td><td>Toggle comment line</td></tr>
+      <tr><td>Ctrl+D</td><td>Duplicate line</td></tr>
+      <tr><td>Alt+↑ / Alt+↓</td><td>Move line up/down</td></tr>
+      <tr><td>Ctrl+]</td><td>Indent</td></tr>
+      <tr><td>Ctrl+[</td><td>Unindent</td></tr>
+      <tr><td>Tab</td><td>Indent / complete</td></tr>
+      <tr><td>Ctrl+Z / Ctrl+Y</td><td>Undo / Redo</td></tr>
+      <tr><td>Ctrl+Home/End</td><td>Jump to top/bottom</td></tr>
+      <tr><td>Ctrl+Shift+?</td><td>Show shortcuts</td></tr>
+      <tr><td>Esc</td><td>Close modal / panels</td></tr>
+    </table>
+    <button id="close-shortcuts">Close</button>
+  </div>
+</div>
+
+<script src="/static/js/editor.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+*.egg-info
+README.html
+README.md:Zone.Identifier
+pyproject.toml:Zone.Identifier
+.venv
+__pycache__
