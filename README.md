@@ -1,5 +1,7 @@
 # MarkDay
 
+<img src="static/MarkDayLogo.png.png" width="130" align="right" style="margin-left: 50px;">
+
 A local-first daily work logger with rich Markdown editing, calendar navigation, search, and math support. All data stays on your machine — no cloud, no accounts.
 
 ---
